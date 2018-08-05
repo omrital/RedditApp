@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Reddit</string>
+    <string name="tab_name_channel">Food</string>
+    <string name="tab_name_favorites">Favorites</string>
+</resources>
