@@ -56,8 +56,9 @@ class HttpClient @Inject constructor(val client: OkHttpClient): HttpClientType {
                 }
                 if (response!!.isSuccessful) {
                     val gson = Gson()
-                    val redditResponse = gson.fromJson(response.body().toString(), RedditResponseStructure::class.java)
+                    val redditResponse = gson.fromJson(response.body()?.string(), RedditResponseStructure::class.java)
                     deferredObject.resolve(redditResponse)
+
                 } else {
                     deferredObject.reject(errorRequestFail)
                 }

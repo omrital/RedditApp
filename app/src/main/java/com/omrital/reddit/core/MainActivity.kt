@@ -8,8 +8,9 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.omrital.reddit.R
 import com.omrital.reddit.Utils.MainPagerListener
-import com.omrital.reddit.screens.channel.ChannelFragment
+import com.omrital.reddit.dagger.AppComponent
 import com.omrital.reddit.screens.favorites.FavoritesFragment
+import com.omrital.reddit.screens.recent.RecentFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_bar.*
 import javax.inject.Inject
@@ -21,18 +22,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (application as RedditApplication).appComponent.inject(this)
+        getAppComponent().inject(this)
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
+        initToolbar()
         initTabs()
+    }
+
+    private fun initToolbar() {
+        toolbar.setTitle(R.string.app_name)
+        setSupportActionBar(toolbar)
     }
 
     private fun initTabs() {
         val adapter = MainTabsAdapter(supportFragmentManager)
-        adapter.addTab(TabData(getString(R.string.tab_name_channel), ChannelFragment()))
+        adapter.addTab(TabData(getString(R.string.tab_name_channel), RecentFragment()))
         adapter.addTab(TabData(getString(R.string.tab_name_favorites), FavoritesFragment()))
 
         pager.adapter = adapter
@@ -44,5 +51,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun onTabSelected() {
         (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(searchField.windowToken, 0)
+    }
+
+    fun getAppComponent(): AppComponent {
+        return (application as RedditApplication).appComponent
     }
 }

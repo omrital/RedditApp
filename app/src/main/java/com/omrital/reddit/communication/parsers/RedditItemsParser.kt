@@ -45,5 +45,5 @@ private class RedditItemDataStructure(val id: String,
 private class RedditItemStructure(val data: RedditItemDataStructure)
 
 private class RedditItemsListDataStructure(val children: List<RedditItemStructure>,
-                                           val after: String,
-                                           val before: String)
+                                           val after: String?,
+                                           val before: String?)
