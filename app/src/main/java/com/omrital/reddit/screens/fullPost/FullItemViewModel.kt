@@ -1,4 +1,4 @@
 package com.omrital.reddit.screens.fullPost
 
-class fullPostViewModel {
+class FullItemViewModel {
 }

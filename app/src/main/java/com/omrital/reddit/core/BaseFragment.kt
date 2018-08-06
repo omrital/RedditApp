@@ -1,10 +1,10 @@
 package com.omrital.reddit.core
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v4.app.DialogFragment
 import com.omrital.reddit.dagger.AppComponent
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment: DialogFragment() {
     abstract fun inject(appComponent: AppComponent)
 
     override fun onCreate(savedInstanceState: Bundle?) {

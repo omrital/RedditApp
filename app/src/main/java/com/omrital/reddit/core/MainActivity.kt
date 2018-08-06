@@ -18,6 +18,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: MainViewModelFactory
+    @Inject lateinit var navigator: Navigator
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        navigator.initActivity(this)
 
         setContentView(R.layout.activity_main)
         initToolbar()

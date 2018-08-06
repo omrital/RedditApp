@@ -1,10 +1,10 @@
-package com.omrital.reddit.communication.parsers
+package com.omrital.reddit.network.parsers
 
 import com.google.gson.Gson
-import com.omrital.reddit.communication.ErrorMessage
-import com.omrital.reddit.communication.Progress
-import com.omrital.reddit.communication.ResponseParser
-import com.omrital.reddit.communication.model.RedditResponseStructure
+import com.omrital.reddit.network.ErrorMessage
+import com.omrital.reddit.network.Progress
+import com.omrital.reddit.network.ResponseParser
+import com.omrital.reddit.network.model.RedditResponseStructure
 import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
 import org.jdeferred2.Promise

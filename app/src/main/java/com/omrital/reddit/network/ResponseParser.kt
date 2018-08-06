@@ -1,6 +1,6 @@
-package com.omrital.reddit.communication
+package com.omrital.reddit.network
 
-import com.omrital.reddit.communication.model.RedditResponseStructure
+import com.omrital.reddit.network.model.RedditResponseStructure
 import org.jdeferred2.Promise
 
 interface ResponseParser<T> {

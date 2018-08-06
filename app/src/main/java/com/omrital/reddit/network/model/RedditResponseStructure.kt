@@ -1,4 +1,4 @@
-package com.omrital.reddit.communication.model
+package com.omrital.reddit.network.model
 
 import com.google.gson.JsonElement
 

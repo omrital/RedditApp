@@ -1,7 +1,7 @@
 package com.omrital.reddit.dagger
 
-import com.omrital.reddit.communication.HttpClient
-import com.omrital.reddit.communication.RequestDispatcher
+import com.omrital.reddit.network.HttpClient
+import com.omrital.reddit.network.RequestDispatcher
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

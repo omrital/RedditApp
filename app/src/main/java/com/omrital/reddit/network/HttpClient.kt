@@ -1,8 +1,8 @@
-package com.omrital.reddit.communication
+package com.omrital.reddit.network
 
 import com.google.gson.Gson
-import com.omrital.reddit.communication.model.RedditRequestStructure
-import com.omrital.reddit.communication.model.RedditResponseStructure
+import com.omrital.reddit.network.model.RedditRequestStructure
+import com.omrital.reddit.network.model.RedditResponseStructure
 import okhttp3.*
 import org.jdeferred2.Promise
 import org.jdeferred2.impl.DeferredObject
@@ -18,7 +18,7 @@ interface HttpClientType {
 
 class HttpClient @Inject constructor(val client: OkHttpClient): HttpClientType {
 
-    private val baseURL = "http://www.reddit.com/r/subreddit/new.json"
+    private val baseURL = "http://www.reddit.com/r/food.json"
     private val errorResponseNull = "response is null"
     private val errorRequestFail = "request failed"
 

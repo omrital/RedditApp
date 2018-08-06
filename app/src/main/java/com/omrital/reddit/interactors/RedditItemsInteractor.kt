@@ -1,12 +1,12 @@
 package com.omrital.reddit.interactors
 
 import com.omrital.reddit.Utils.MainThread
-import com.omrital.reddit.communication.ErrorMessage
-import com.omrital.reddit.communication.Progress
-import com.omrital.reddit.communication.RequestDispatcher
-import com.omrital.reddit.communication.parsers.RedditItemsParser
-import com.omrital.reddit.communication.requests.RedditItemsRequest
 import com.omrital.reddit.model.RedditBulk
+import com.omrital.reddit.network.ErrorMessage
+import com.omrital.reddit.network.Progress
+import com.omrital.reddit.network.RequestDispatcher
+import com.omrital.reddit.network.parsers.RedditItemsParser
+import com.omrital.reddit.network.requests.RedditItemsRequest
 import org.jdeferred2.Promise
 import org.jdeferred2.impl.DeferredObject
 import javax.inject.Inject

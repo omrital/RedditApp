@@ -1,7 +1,7 @@
-package com.omrital.reddit.communication
+package com.omrital.reddit.network
 
-import com.omrital.reddit.communication.model.RedditRequestStructure
-import com.omrital.reddit.communication.model.RedditResponseStructure
+import com.omrital.reddit.network.model.RedditRequestStructure
+import com.omrital.reddit.network.model.RedditResponseStructure
 import org.jdeferred2.Promise
 import org.jdeferred2.impl.DeferredObject
 import javax.inject.Inject

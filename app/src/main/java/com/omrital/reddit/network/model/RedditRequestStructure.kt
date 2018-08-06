@@ -1,4 +1,4 @@
-package com.omrital.reddit.communication.model
+package com.omrital.reddit.network.model
 
 interface RedditRequestStructure {
     var params: HashMap<String, String>
