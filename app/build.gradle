@@ -26,6 +26,7 @@ dependencies {
     def lifecycle_version = "1.1.1"
     def dagger_version = "2.11"
     def support_version = "27.1.1"
+    def promise_version = "2.0.0-beta1"
 
     implementation "com.android.support:design:$support_version"
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
@@ -44,6 +45,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile "org.jdeferred.v2:jdeferred-android-aar:$promise_version"
 }
 
 apply plugin: 'kotlin-android'
