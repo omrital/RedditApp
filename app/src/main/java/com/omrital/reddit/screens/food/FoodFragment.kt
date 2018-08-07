@@ -47,9 +47,8 @@ class FoodFragment: BaseFragment() {
     }
 
     private fun initSearch() {
-        searchBar.searchCallback = {
-            before, after ->
-
+        searchBar.searchCallback = { before, after ->
+            viewModel.onSearch(before, after)
         }
     }
 

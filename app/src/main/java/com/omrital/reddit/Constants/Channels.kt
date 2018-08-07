@@ -1,4 +1,4 @@
-package com.omrital.reddit.core
+package com.omrital.reddit.Constants
 
 class Channels {
     companion object {

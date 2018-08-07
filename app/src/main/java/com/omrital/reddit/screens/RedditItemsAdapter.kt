@@ -12,6 +12,7 @@ import javax.inject.Inject
 class RedditItemsAdapter @Inject constructor(val context: Context, val navigator: Navigator): RecyclerView.Adapter<RedditItemViewHolder>() {
 
     private var items: ArrayList<RedditItem> = ArrayList()
+    var searchTerm: String = ""
 
     fun refreshItems(items: List<RedditItem>) {
         this.items.clear()
@@ -35,7 +36,7 @@ class RedditItemsAdapter @Inject constructor(val context: Context, val navigator
 
     override fun onBindViewHolder(holder: RedditItemViewHolder, position: Int) {
         val item = this.items[position]
-        holder.set(item) {
+        holder.set(item, searchTerm) {
             navigator.openFullItem(item)
         }
     }

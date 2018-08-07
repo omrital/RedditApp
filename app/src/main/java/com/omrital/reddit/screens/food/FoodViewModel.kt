@@ -3,14 +3,18 @@ package com.omrital.reddit.screens.food
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import com.omrital.reddit.Constants.Search
 import com.omrital.reddit.R
 import com.omrital.reddit.interactors.RedditItemsInteractor
 import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import javax.inject.Inject
 
 interface FoodViewModelType {
     fun load()
+    fun onSearch(beforeChange: String, afterChange: String)
 }
 
 class FoodViewModel @Inject constructor(private val interactor: RedditItemsInteractor,
@@ -30,8 +34,8 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
         loadRemotePosts()
     }
 
-    fun onSearch(beforeChange: String, afterChange: String) {
-        if (afterChange != beforeChange && afterChange.isNotEmpty()) {
+    override fun onSearch(beforeChange: String, afterChange: String) {
+        if (afterChange != beforeChange && afterChange.length >= Search.MINIMUM) {
             search(afterChange)
         } else if (afterChange != beforeChange) {
             refreshFromCache()
@@ -44,7 +48,26 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
     }
 
     private fun search(term: String) {
-        
+        doAsync {
+            val results = getSearchResults(term)
+
+            uiThread {
+                redditItems.postValue(results)
+                updateSearchEmptyState(results.isEmpty(), term)
+            }
+        }
+    }
+
+    private fun getSearchResults(term: String): List<RedditItem> {
+        val term = term.toLowerCase()
+        var results = ArrayList<RedditItem>()
+
+        for(item in cache) {
+            if(item.title.toLowerCase().contains(term)) {
+                results.add(item)
+            }
+        }
+        return results
     }
 
     private fun loadRemotePosts() {

@@ -2,7 +2,7 @@ package com.omrital.reddit.interactors
 
 import com.omrital.reddit.DataBase.DataBase
 import com.omrital.reddit.Utils.MainThread
-import com.omrital.reddit.core.Channels
+import com.omrital.reddit.Constants.Channels
 import com.omrital.reddit.model.RealmLiveData
 import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem

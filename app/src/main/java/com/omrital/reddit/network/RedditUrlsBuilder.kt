@@ -1,12 +1,11 @@
 package com.omrital.reddit.network
 
+import com.omrital.reddit.Constants.Network
+
 class RedditUrlsBuilder {
     companion object {
-        private const val baseURL = "http://www.reddit.com"
-        private const val responseFormat = "json"
-
         fun buildChannelUrl(channel: String): String {
-            return "$baseURL/r/$channel.$responseFormat"
+            return "${Network.BASE_URL}/r/$channel.${Network.RESPONSE_FORMAT}"
         }
     }
 }
