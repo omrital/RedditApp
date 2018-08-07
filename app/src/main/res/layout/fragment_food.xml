@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/search_bar"></include>
+    <com.omrital.reddit.widgets.SearchBar
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -27,15 +30,6 @@
                 android:dividerHeight="0dp" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:visibility="gone"
-            android:indeterminate="true" />
 
         <TextView
             android:id="@+id/emptyState"

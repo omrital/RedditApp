@@ -9,18 +9,18 @@ import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
 import javax.inject.Inject
 
-interface RecentViewModelType {
+interface FoodViewModelType {
     fun load()
 }
 
-class RecentViewModel @Inject constructor(private val redditItemsInteractor: RedditItemsInteractor,
-                                          private val context: Context): ViewModel(), RecentViewModelType {
+class FoodViewModel @Inject constructor(private val interactor: RedditItemsInteractor,
+                                        private val context: Context): ViewModel(), FoodViewModelType {
 
     val redditItems: MutableLiveData<List<RedditItem>> = MutableLiveData()
     val progress: MutableLiveData<Boolean> = MutableLiveData()
     val emptyState: MutableLiveData<String> = MutableLiveData()
 
-    private val allItems = ArrayList<RedditItem>()
+    private val cache = ArrayList<RedditItem>()
 
     init {
         load()
@@ -30,10 +30,29 @@ class RecentViewModel @Inject constructor(private val redditItemsInteractor: Red
         loadRemotePosts()
     }
 
-    private fun loadRemotePosts() {
-        progress.postValue(true)
-        val getItems = redditItemsInteractor.getItems()
+    fun onSearch(beforeChange: String, afterChange: String) {
+        if (afterChange != beforeChange && afterChange.isNotEmpty()) {
+            search(afterChange)
+        } else if (afterChange != beforeChange) {
+            refreshFromCache()
+        }
+    }
 
+    private fun refreshFromCache() {
+        updateCacheEmptyState()
+        redditItems.postValue(cache)
+    }
+
+    private fun search(term: String) {
+        
+    }
+
+    private fun loadRemotePosts() {
+        cache.clear()
+        redditItems.postValue(cache)
+        progress.postValue(true)
+
+        val getItems = interactor.getItems()
         getItems.done {
             onGetItemsSuccess(it)
         }
@@ -43,28 +62,32 @@ class RecentViewModel @Inject constructor(private val redditItemsInteractor: Red
     }
 
     private fun onGetItemsSuccess(bulk: RedditBulk) {
-        progress.postValue(false)
+        cache.clear()
+        cache.addAll(bulk.items)
 
-        if(bulk.items.isEmpty()) {
+        progress.postValue(false)
+        updateCacheEmptyState()
+        redditItems.postValue(cache)
+    }
+
+    private fun onGetItemsFail(errorMessage: String) {
+        cache.clear()
+        redditItems.postValue(cache)
+
+        progress.postValue(false)
+        emptyState.postValue(errorMessage)
+
+    }
+
+    private fun updateCacheEmptyState() {
+        if(cache.isEmpty()) {
             emptyState.postValue(context.resources.getString(R.string.empty_state_no_items))
         } else {
             emptyState.postValue("")
         }
-        redditItems.postValue(bulk.items)
     }
 
-    private fun onGetItemsFail(errorMessage: String) {
-        progress.postValue(false)
-        emptyState.postValue(errorMessage)
+    private fun updateSearchEmptyState(isEmpty: Boolean, searchTerm: String) {
+
     }
 }
-
-//class RecentViewModelFactory @Inject constructor(private val channelViewModel: RecentViewModel) : ViewModelProvider.Factory {
-//
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        if (modelClass.isAssignableFrom(RecentViewModel::class.java)) {
-//            return channelViewModel as T
-//        }
-//        throw IllegalArgumentException("Unknown class name")
-//    }
-//}

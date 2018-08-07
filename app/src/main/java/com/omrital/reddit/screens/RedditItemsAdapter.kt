@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.omrital.reddit.R
+import com.omrital.reddit.core.Navigator
 import com.omrital.reddit.model.RedditItem
 import javax.inject.Inject
 
-class RedditItemsAdapter @Inject constructor(val context: Context): RecyclerView.Adapter<RedditItemViewHolder>() {
+class RedditItemsAdapter @Inject constructor(val context: Context, val navigator: Navigator): RecyclerView.Adapter<RedditItemViewHolder>() {
 
     private var items: ArrayList<RedditItem> = ArrayList()
 
@@ -34,6 +35,8 @@ class RedditItemsAdapter @Inject constructor(val context: Context): RecyclerView
 
     override fun onBindViewHolder(holder: RedditItemViewHolder, position: Int) {
         val item = this.items[position]
-        holder.set(item)
+        holder.set(item) {
+            navigator.openFullItem(item)
+        }
     }
 }

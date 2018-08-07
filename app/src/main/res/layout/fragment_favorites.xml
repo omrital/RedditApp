@@ -14,20 +14,13 @@
         android:divider="@color/black"
         android:dividerHeight="0dp" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:indeterminate="true" />
-
     <TextView
         android:id="@+id/emptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:padding="30dp"
         android:textColor="@color/black"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_gravity="center" />
 
 </FrameLayout>

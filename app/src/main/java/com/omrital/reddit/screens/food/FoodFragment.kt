@@ -12,7 +12,7 @@ import com.omrital.reddit.core.BaseFragment
 import com.omrital.reddit.core.CustomViewModelFactory
 import com.omrital.reddit.dagger.AppComponent
 import com.omrital.reddit.screens.RedditItemsAdapter
-import kotlinx.android.synthetic.main.fragment_channel.*
+import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
 
 class FoodFragment: BaseFragment() {
@@ -21,11 +21,12 @@ class FoodFragment: BaseFragment() {
     lateinit var viewModelFactory: CustomViewModelFactory
     @Inject
     lateinit var adapter: RedditItemsAdapter
-    private lateinit var viewModel: RecentViewModel
+
+    private lateinit var viewModel: FoodViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_channel, container, false)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(RecentViewModel::class.java)
+        val view = inflater.inflate(R.layout.fragment_food, container, false)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(FoodViewModel::class.java)
         return view
     }
 
@@ -40,8 +41,16 @@ class FoodFragment: BaseFragment() {
     }
 
     private fun setupViews() {
+        initSearch()
         setupRecycler()
         setupSwipeToRefresh()
+    }
+
+    private fun initSearch() {
+        searchBar.searchCallback = {
+            before, after ->
+
+        }
     }
 
     private fun setupRecycler() {
@@ -63,7 +72,6 @@ class FoodFragment: BaseFragment() {
         })
         viewModel.progress.observe(this, Observer {
             it?.let {
-//                progressBar.visibility = if(it) View.VISIBLE else View.GONE
                 swipeToRefresh.isRefreshing = it
             }
         })

@@ -30,5 +30,5 @@ class AppModule(private val app: Application) {
     fun getSelectedItemProvider() = SelectedItemProvider()
 
     @Provides
-    fun getRedditItemsAdapter(context: Context): RedditItemsAdapter = RedditItemsAdapter(context)
+    fun getRedditItemsAdapter(context: Context, navigator: Navigator): RedditItemsAdapter = RedditItemsAdapter(context, navigator)
 }

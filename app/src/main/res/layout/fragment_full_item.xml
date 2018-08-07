@@ -10,12 +10,36 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:background="@color/colorPrimary"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@color/white">
 
-    <WebView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/webView"
+        <ImageView
+            android:id="@+id/starButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_heart_empty"
+            android:layout_gravity="end"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible" />
+        android:layout_height="match_parent">
+
+        <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:indeterminate="true" />
+
+    </FrameLayout>
 
 </LinearLayout>
