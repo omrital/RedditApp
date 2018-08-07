@@ -10,7 +10,7 @@ import com.omrital.reddit.R
 import com.omrital.reddit.Utils.MainPagerListener
 import com.omrital.reddit.dagger.AppComponent
 import com.omrital.reddit.screens.favorites.FavoritesFragment
-import com.omrital.reddit.screens.recent.RecentFragment
+import com.omrital.reddit.screens.food.FoodFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.search_bar.*
 import javax.inject.Inject
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initTabs() {
         val adapter = MainTabsAdapter(supportFragmentManager)
-        adapter.addTab(TabData(getString(R.string.tab_name_channel), RecentFragment()))
+        adapter.addTab(TabData(getString(R.string.tab_name_channel), FoodFragment()))
         adapter.addTab(TabData(getString(R.string.tab_name_favorites), FavoritesFragment()))
 
         pager.adapter = adapter

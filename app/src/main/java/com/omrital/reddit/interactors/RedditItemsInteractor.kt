@@ -1,6 +1,7 @@
 package com.omrital.reddit.interactors
 
 import com.omrital.reddit.Utils.MainThread
+import com.omrital.reddit.core.Channels
 import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.network.ErrorMessage
 import com.omrital.reddit.network.Progress
@@ -21,7 +22,7 @@ class RedditItemsInteractor @Inject constructor(val requestDispatcher: RequestDi
 
     override fun getItems(): Promise<RedditBulk, ErrorMessage, Progress> {
         val deferred = DeferredObject<RedditBulk, ErrorMessage, Progress>()
-        val promise = requestDispatcher.dispatchRequest(RedditItemsRequest(limit), RedditItemsParser())
+        val promise = requestDispatcher.dispatchRequest(RedditItemsRequest(limit, Channels.FOOD), RedditItemsParser())
 
         promise.done {
             MainThread.run {

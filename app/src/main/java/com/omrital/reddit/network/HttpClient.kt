@@ -18,13 +18,12 @@ interface HttpClientType {
 
 class HttpClient @Inject constructor(val client: OkHttpClient): HttpClientType {
 
-    private val baseURL = "http://www.reddit.com/r/food.json"
     private val errorResponseNull = "response is null"
     private val errorRequestFail = "request failed"
 
     override fun doGetRequest(request: RedditRequestStructure): Promise<RedditResponseStructure, ErrorMessage, Progress> {
 
-        val urlBuilder = HttpUrl.parse(baseURL)?.newBuilder()
+        val urlBuilder = HttpUrl.parse(request.URL)?.newBuilder()
         addRequestParams(urlBuilder, request)
 
         val url = urlBuilder?.build().toString()
