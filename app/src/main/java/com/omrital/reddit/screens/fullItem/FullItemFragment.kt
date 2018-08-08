@@ -98,8 +98,8 @@ class FullItemFragment: BaseFragment() {
     }
 }
 
-class ProgressWebViewListener constructor(val progressBar: ProgressBar) : WebViewClient() {
+class ProgressWebViewListener constructor(val progressBar: ProgressBar?) : WebViewClient() {
     override fun onPageFinished(view: WebView?, url: String?) {
-        progressBar.visibility = View.GONE
+        progressBar?.visibility = View.GONE
     }
 }

@@ -2,6 +2,7 @@ package com.omrital.reddit.dagger
 
 import android.app.Application
 import android.content.Context
+import com.omrital.reddit.DataBase.DataBase
 import com.omrital.reddit.core.Navigator
 import com.omrital.reddit.interactors.RedditItemsInteractor
 import com.omrital.reddit.network.RequestDispatcher
@@ -19,7 +20,7 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    fun provideRedditItemsInteractor(requestDispatcher: RequestDispatcher) = RedditItemsInteractor(requestDispatcher)
+    fun provideRedditItemsInteractor(requestDispatcher: RequestDispatcher, dataBase: DataBase) = RedditItemsInteractor(requestDispatcher, dataBase)
 
     @Provides
     @Singleton

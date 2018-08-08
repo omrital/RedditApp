@@ -1,9 +1,11 @@
 package com.omrital.reddit.model
 
 import io.realm.RealmObject
+import io.realm.annotations.RealmClass
 
-class RedditItem(val id: String,
-                 val title: String,
-                 val name: String,
-                 val imageUrl: String,
-                 val webPageLink: String): RealmObject()
+@RealmClass
+open class RedditItem(var id: String = "",
+                      var title: String = "",
+                      var name: String = "",
+                      var imageUrl: String = "",
+                      var webPageLink: String = ""): RealmObject()
