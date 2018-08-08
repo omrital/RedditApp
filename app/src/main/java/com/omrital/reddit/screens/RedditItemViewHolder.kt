@@ -2,6 +2,7 @@ package com.omrital.reddit.screens
 
 import android.graphics.PorterDuff
 import android.support.v7.widget.RecyclerView
+import android.util.Patterns
 import android.view.View
 import com.omrital.reddit.Constants.Search
 import com.omrital.reddit.R
@@ -26,16 +27,30 @@ class RedditItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         if(searchTerm.length >= Search.MINIMUM) {
             HighlightTextUtil.boldWordsInsideTextView(itemView.title, arrayOf(searchTerm), true)
         }
+        setImage(item)
+    }
 
-        Picasso.with(itemView.context).load(item.imageUrl).placeholder(R.drawable.default_placeholder).into(itemView.image, object: Callback {
+    private fun setImage(item: RedditItem) {
+        if(Patterns.WEB_URL.matcher(item.imageUrl).matches()) {
+            itemView.imageFrame.visibility = View.VISIBLE
+        } else {
+            itemView.imageFrame.visibility = View.GONE
+        }
+        loadImageUrl(item.imageUrl)
+    }
+
+    private fun loadImageUrl(url: String) {
+        itemView.progressBar?.visibility = View.VISIBLE
+
+        Picasso.with(itemView.context).load(url).into(itemView.image, object: Callback {
             override fun onSuccess() {
                 if(itemView != null) {
-                    itemView.progressBar.visibility = View.GONE
+                    itemView.progressBar?.visibility = View.GONE
                 }
             }
             override fun onError() {
                 if(itemView != null) {
-                    itemView.progressBar.visibility = View.GONE
+                    itemView.progressBar?.visibility = View.GONE
                 }
             }
         })

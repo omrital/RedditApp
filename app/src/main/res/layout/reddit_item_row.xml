@@ -31,11 +31,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textSize="20sp"
                 android:gravity="center"
                 android:text="Title"/>
 
             <FrameLayout
+                android:id="@+id/imageFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -44,8 +46,7 @@
                 <ImageView
                     android:id="@+id/image"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_height="250dp"/>
 
                 <ProgressBar
                     android:id="@+id/progressBar"
