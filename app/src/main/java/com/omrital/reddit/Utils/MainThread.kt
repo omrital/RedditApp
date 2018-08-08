@@ -5,8 +5,10 @@ import android.os.Looper
 
 class MainThread {
     companion object {
-        fun run(runnable: Runnable) {
-            Handler(Looper.getMainLooper()).post(runnable)
+        fun run(block: (() -> Unit)) {
+            Handler(Looper.getMainLooper()).post({
+                block.invoke()
+            })
         }
 
         fun isMainThread(): Boolean {
