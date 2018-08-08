@@ -36,7 +36,7 @@ class RedditItemsInteractor @Inject constructor(val requestDispatcher: RequestDi
         val deferred = DeferredObject<RedditBulk, ErrorMessage, Progress>()
 
         var getItemsRequest = RedditItemsRequest(RequestParams.VAL_LIMIT, Channels.FOOD, after)
-        val promise = requestDispatcher.dispatchRequest(getItemsRequest, RedditItemsParser())
+        val promise = requestDispatcher.dispatchRequest(getItemsRequest, RedditItemsParser(Channels.FOOD))
 
         promise.done {
             MainThread.run {

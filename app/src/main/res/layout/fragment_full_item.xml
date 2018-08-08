@@ -1,26 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="58dp"
+        android:layout_height="83dp"
         android:background="@color/colorPrimary"
-        app:titleTextColor="@color/white">
+        android:orientation="horizontal"
+        android:paddingTop="25dp">
 
-        <ImageView
-            android:id="@+id/starButton"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+        <com.omrital.reddit.widgets.AlphaImageview
+            android:id="@+id/backButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_heart_empty"
-            android:layout_gravity="end"/>
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-    </android.support.v7.widget.Toolbar>
+        <com.omrital.reddit.widgets.AlphaImageview
+            android:id="@+id/starButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_heart_empty" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package com.omrital.reddit.dagger
 import android.app.Application
 import android.content.Context
 import com.omrital.reddit.DataBase.DataBase
+import com.omrital.reddit.Utils.Keyboard
 import com.omrital.reddit.core.Navigator
 import com.omrital.reddit.interactors.RedditItemsInteractor
 import com.omrital.reddit.network.RequestDispatcher
@@ -32,4 +33,8 @@ class AppModule(private val app: Application) {
 
     @Provides
     fun getRedditItemsAdapter(context: Context, navigator: Navigator): RedditItemsAdapter = RedditItemsAdapter(context, navigator)
+
+    @Provides
+    @Singleton
+    fun getKeyboard(context: Context): Keyboard = Keyboard(context)
 }

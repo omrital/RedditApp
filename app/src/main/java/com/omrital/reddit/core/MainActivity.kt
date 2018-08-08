@@ -1,12 +1,11 @@
 package com.omrital.reddit.core
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import com.omrital.reddit.R
+import com.omrital.reddit.Utils.Keyboard
 import com.omrital.reddit.Utils.MainPagerListener
 import com.omrital.reddit.dagger.AppComponent
 import com.omrital.reddit.screens.favorites.FavoritesFragment
@@ -17,8 +16,13 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var viewModelFactory: MainViewModelFactory
-    @Inject lateinit var navigator: Navigator
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
+    @Inject
+    lateinit var navigator: Navigator
+    @Inject
+    lateinit var keyboard: Keyboard
+
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onTabSelected() {
-        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(searchField.windowToken, 0)
+        keyboard.hide(searchField)
     }
 
     fun getAppComponent(): AppComponent {

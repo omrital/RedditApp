@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.omrital.reddit.R
+import com.omrital.reddit.Utils.Keyboard
 import com.omrital.reddit.core.BaseFragment
 import com.omrital.reddit.core.CustomViewModelFactory
 import com.omrital.reddit.dagger.AppComponent
@@ -15,12 +16,14 @@ import com.omrital.reddit.screens.RedditItemsAdapter
 import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
 
-class FoodFragment: BaseFragment() {
+class FoodFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: CustomViewModelFactory
     @Inject
     lateinit var adapter: RedditItemsAdapter
+    @Inject
+    lateinit var keyboard: Keyboard
 
     private lateinit var viewModel: FoodViewModel
 
@@ -58,6 +61,9 @@ class FoodFragment: BaseFragment() {
             viewModel.loadMoreItems()
         }
         recycler.adapter = adapter
+        recycler.setOnTouchListener { _,_ ->
+            keyboard.hide(view)
+        }
     }
 
     private fun setupSwipeToRefresh() {
@@ -68,13 +74,13 @@ class FoodFragment: BaseFragment() {
 
     private fun bindViewModel() {
         viewModel.items.observe(this, Observer {
-            it?.let {
-                items -> adapter.refreshItems(items)
+            it?.let { items ->
+                adapter.refreshItems(items)
             }
         })
         viewModel.nextItems.observe(this, Observer {
-            it?.let {
-                items -> adapter.addItemsToBottom(items)
+            it?.let { items ->
+                adapter.addItemsToBottom(items)
             }
         })
         viewModel.progress.observe(this, Observer {

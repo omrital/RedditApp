@@ -7,5 +7,9 @@ class RedditUrlsBuilder {
         fun buildChannelUrl(channel: String): String {
             return "${Network.BASE_URL}/r/$channel.${Network.RESPONSE_FORMAT}"
         }
+
+        fun buildFullItemlUrl(channel: String, itemId: String): String {
+            return "${Network.BASE_URL_SECURE}/r/$channel/comments/$itemId/"
+        }
     }
 }

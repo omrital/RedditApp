@@ -3,6 +3,7 @@ package com.omrital.reddit.screens.fullItem
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.omrital.reddit.interactors.RedditItemsInteractor
+import com.omrital.reddit.network.RedditUrlsBuilder
 import com.omrital.reddit.providers.SelectedItemProvider
 import javax.inject.Inject
 
@@ -24,6 +25,9 @@ class FullItemViewModel @Inject constructor(val selectedItemProvider: SelectedIt
         if(item != null) {
             title.value = item.title
             Url.value = item.webPageLink
+
+            RedditUrlsBuilder.buildChannelUrl(item.id)
+
             starred.value = interactor.getItem(item.id) != null
         }
     }

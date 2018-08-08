@@ -7,10 +7,11 @@ import com.omrital.reddit.network.ResponseParser
 import com.omrital.reddit.network.model.RedditResponseStructure
 import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
+import com.omrital.reddit.network.RedditUrlsBuilder
 import org.jdeferred2.Promise
 import org.jdeferred2.impl.DeferredObject
 
-class RedditItemsParser: ResponseParser<RedditBulk> {
+class RedditItemsParser(val channel: String): ResponseParser<RedditBulk> {
     override fun parse(response: RedditResponseStructure): Promise<RedditBulk, ErrorMessage, Progress> {
 
         val deferred = DeferredObject<RedditBulk, ErrorMessage, Progress>()
@@ -25,7 +26,7 @@ class RedditItemsParser: ResponseParser<RedditBulk> {
                         child.data.title,
                         child.data.name,
                         child.data.thumbnail,
-                        child.data.url))
+                        RedditUrlsBuilder.buildFullItemlUrl(channel, child.data.id)))
             }
             deferred.resolve(RedditBulk(items, responseModel.before, responseModel.after))
 
@@ -39,8 +40,7 @@ class RedditItemsParser: ResponseParser<RedditBulk> {
 private class RedditItemDataStructure(val id: String,
                            val name: String,
                            val title: String,
-                           val thumbnail: String,
-                           val url: String)
+                           val thumbnail: String)
 
 private class RedditItemStructure(val data: RedditItemDataStructure)
 
