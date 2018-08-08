@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 interface FullItemViewModelType {
     fun onStarClick()
-    fun onExit()
 }
 
 class FullItemViewModel @Inject constructor(val selectedItemProvider: SelectedItemProvider,
@@ -34,21 +33,15 @@ class FullItemViewModel @Inject constructor(val selectedItemProvider: SelectedIt
 
     override fun onStarClick() {
         val isStarred = starred.value
-        if (isStarred != null) {
-            starred.postValue(!isStarred)
-        }
-    }
-
-    override fun onExit() {
-        val isStarred = starred.value
         val item = selectedItemProvider.getSelectedItem()
 
         if (isStarred != null) {
             if(isStarred) {
-                interactor.saveItem(item)
-            } else {
                 interactor.deleteItem(item?.id)
+            } else {
+                interactor.saveItem(item)
             }
+            starred.postValue(!isStarred)
         }
     }
 }

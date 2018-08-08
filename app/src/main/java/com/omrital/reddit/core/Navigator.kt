@@ -14,15 +14,19 @@ interface NavigatorType {
 class Navigator @Inject constructor(val selectedItemProvider: SelectedItemProvider): NavigatorType {
 
     private lateinit var activity: AppCompatActivity
+    private val dialogTag = "full_item_dialog"
 
     override fun initActivity(activity: AppCompatActivity) {
         this.activity = activity
     }
 
     override fun openFullItem(item: RedditItem) {
-        selectedItemProvider.updateSelectedItem(item)
+        if(activity.supportFragmentManager.findFragmentByTag(dialogTag) != null) {
+            return
+        }
+        selectedItemProvider.updateSelectedItem(item.getCopy())
 
         val fullItem = FullItemFragment()
-        fullItem.show(activity.supportFragmentManager, "")
+        fullItem.show(activity.supportFragmentManager, dialogTag)
     }
 }

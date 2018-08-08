@@ -135,7 +135,7 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
             onGetItemsSuccess(it)
         }
         getItems.fail {
-            onGetItemsFail(it)
+            onGetItemsFail()
         }
     }
 
@@ -149,18 +149,21 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
         inProgress = false
     }
 
-    private fun onGetItemsFail(errorMessage: String) {
+    private fun onGetItemsFail() {
         cache.clear()
         items.postValue(cache)
 
         progress.postValue(false)
-        emptyState.postValue(errorMessage)
+        emptyState.postValue(context.resources.getString(R.string.load_items_error))
         inProgress = false
     }
 
     private fun loadMorePosts() {
-        inProgress = true
+        if(cache.size == 0) {
+            return
+        }
 
+        inProgress = true
         loadMoreState.postValue(FooterState.LOADING)
 
         val lastItemName = cache[cache.size-1].name

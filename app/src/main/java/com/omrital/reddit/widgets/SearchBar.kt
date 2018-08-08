@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.omrital.reddit.R
+import com.omrital.reddit.Utils.Keyboard
 import kotlinx.android.synthetic.main.search_bar.view.*
 
 class SearchBar: LinearLayout {
 
+    private var before: String = ""
     var searchCallback: ((String, String) -> Unit)? = null
-    var before: String = ""
+    var keyboard: Keyboard? = null
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -30,8 +32,13 @@ class SearchBar: LinearLayout {
     private fun init(context: Context?) {
         LayoutInflater.from(context).inflate(R.layout.search_bar, this, true)
         addTextChangeListener()
+
         clearButton.setOnClickListener {
             searchField.setText("")
+        }
+        searchField.setOnEditorActionListener { _,_,_ ->
+            keyboard?.hide(searchField)
+            true
         }
     }
 

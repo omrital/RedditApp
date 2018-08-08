@@ -32,11 +32,11 @@ class RedditItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private fun setImage(item: RedditItem) {
         if(Patterns.WEB_URL.matcher(item.imageUrl).matches()) {
-            itemView.imageFrame.visibility = View.VISIBLE
+            loadImageUrl(item.imageUrl)
         } else {
-            itemView.imageFrame.visibility = View.GONE
+            itemView.progressBar.visibility = View.GONE
+            itemView.image.setImageResource(R.drawable.default_placeholder)
         }
-        loadImageUrl(item.imageUrl)
     }
 
     private fun loadImageUrl(url: String) {

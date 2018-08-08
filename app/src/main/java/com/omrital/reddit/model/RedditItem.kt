@@ -9,4 +9,9 @@ open class RedditItem(@PrimaryKey var id: String = "",
                       var title: String = "",
                       var name: String = "",
                       var imageUrl: String = "",
-                      var webPageLink: String = ""): RealmObject()
+                      var webPageLink: String = ""): RealmObject() {
+
+    fun getCopy(): RedditItem {
+        return RedditItem(id, title, name, imageUrl, webPageLink)
+    }
+}

@@ -54,6 +54,7 @@ class FoodFragment : BaseFragment() {
             adapter.searchTerm = after
             viewModel.onSearch(before, after)
         }
+        searchBar.keyboard = keyboard
     }
 
     private fun setupRecycler() {

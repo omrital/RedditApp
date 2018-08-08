@@ -1,7 +1,6 @@
 package com.omrital.reddit.dagger
 
 import com.omrital.reddit.core.MainActivity
-import com.omrital.reddit.core.MainViewModelFactory
 import com.omrital.reddit.screens.favorites.FavoritesFragment
 import com.omrital.reddit.screens.fullItem.FullItemFragment
 import com.omrital.reddit.screens.food.FoodFragment
@@ -19,6 +18,4 @@ interface AppComponent {
     fun inject(recentFragment: FoodFragment)
     fun inject(favoritesFragment: FavoritesFragment)
     fun inject(fullPostFragment: FullItemFragment)
-
-    fun getMainViewModelFactory(): MainViewModelFactory
 }

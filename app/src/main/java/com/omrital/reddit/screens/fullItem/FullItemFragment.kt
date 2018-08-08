@@ -91,11 +91,6 @@ class FullItemFragment: BaseFragment() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onExit()
-    }
-
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
