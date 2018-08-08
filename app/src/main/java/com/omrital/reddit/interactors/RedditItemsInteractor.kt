@@ -1,8 +1,9 @@
 package com.omrital.reddit.interactors
 
+import com.omrital.reddit.Constants.Channels
+import com.omrital.reddit.Constants.RequestParams
 import com.omrital.reddit.DataBase.DataBase
 import com.omrital.reddit.Utils.MainThread
-import com.omrital.reddit.Constants.Channels
 import com.omrital.reddit.model.RealmLiveData
 import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
@@ -21,16 +22,21 @@ interface RedditItemsInteractorType {
     fun saveItem(item: RedditItem?)
     fun deleteItem(id: String?)
     fun getFavorites(): RealmLiveData<RedditItem>
+    fun getItemsAfterName(after: String?): Promise<RedditBulk, ErrorMessage, Progress>
 }
 
 class RedditItemsInteractor @Inject constructor(val requestDispatcher: RequestDispatcher,
                                                 val dataBase: DataBase): RedditItemsInteractorType {
 
-    private val limit = 25
-
     override fun getItems(): Promise<RedditBulk, ErrorMessage, Progress> {
+        return getItemsAfterName(null)
+    }
+
+    override fun getItemsAfterName(after: String?): Promise<RedditBulk, ErrorMessage, Progress> {
         val deferred = DeferredObject<RedditBulk, ErrorMessage, Progress>()
-        val promise = requestDispatcher.dispatchRequest(RedditItemsRequest(limit, Channels.FOOD), RedditItemsParser())
+
+        var getItemsRequest = RedditItemsRequest(RequestParams.VAL_LIMIT, Channels.FOOD, after)
+        val promise = requestDispatcher.dispatchRequest(getItemsRequest, RedditItemsParser())
 
         promise.done {
             MainThread.run {

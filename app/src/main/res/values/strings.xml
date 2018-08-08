@@ -6,4 +6,5 @@
     <string name="empty_state_no_items">There are no items available</string>
     <string name="empty_state_no_favorites">There are no favorites</string>
     <string name="empty_state_search">There are no results for \'{searchTerm}\', try another term</string>
+    <string name="load_more_items_error">Failed to load more items</string>
 </resources>

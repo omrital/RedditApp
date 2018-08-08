@@ -54,6 +54,9 @@ class FoodFragment: BaseFragment() {
 
     private fun setupRecycler() {
         recycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        adapter.onFooterClick = {
+            viewModel.loadMoreItems()
+        }
         recycler.adapter = adapter
     }
 
@@ -64,9 +67,14 @@ class FoodFragment: BaseFragment() {
     }
 
     private fun bindViewModel() {
-        viewModel.redditItems.observe(this, Observer {
+        viewModel.items.observe(this, Observer {
             it?.let {
-                it1 -> adapter.refreshItems(it1)
+                items -> adapter.refreshItems(items)
+            }
+        })
+        viewModel.nextItems.observe(this, Observer {
+            it?.let {
+                items -> adapter.addItemsToBottom(items)
             }
         })
         viewModel.progress.observe(this, Observer {
@@ -77,6 +85,11 @@ class FoodFragment: BaseFragment() {
         viewModel.emptyState.observe(this, Observer {
             it?.let {
                 emptyState.text = it
+            }
+        })
+        viewModel.loadMoreState.observe(this, Observer {
+            it?.let {
+                adapter.updateFooterState(it)
             }
         })
     }
