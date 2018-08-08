@@ -180,7 +180,7 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
         } else {
             noMoreItemsToFetch = true
         }
-        loadMoreState.postValue(FooterState.NONE)
+        loadMoreState.postValue(FooterState.INVISIBLE)
         inProgress = false
     }
 

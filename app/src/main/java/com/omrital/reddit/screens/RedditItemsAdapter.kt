@@ -14,7 +14,7 @@ import javax.inject.Inject
 class RedditItemsAdapter @Inject constructor(val context: Context, val navigator: Navigator): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: ArrayList<RedditItem> = ArrayList()
-    private var footerState: FooterState = FooterState.NONE
+    private var footerState: FooterState = FooterState.INVISIBLE
     var onFooterClick: (() -> Unit)? = null
     var onScrollReachedEnd: (() -> Unit)? = null
     var searchTerm: String = ""
@@ -56,7 +56,7 @@ class RedditItemsAdapter @Inject constructor(val context: Context, val navigator
         } else if(holder is FooterViewHolder) {
             holder.set(footerState, onFooterClick)
 
-            if(footerState == FooterState.NONE) {
+            if(footerState == FooterState.INVISIBLE) {
                 onScrollReachedEnd?.invoke()
             }
         }

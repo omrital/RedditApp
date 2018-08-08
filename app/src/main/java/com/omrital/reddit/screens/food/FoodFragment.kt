@@ -58,13 +58,18 @@ class FoodFragment : BaseFragment() {
 
     private fun setupRecycler() {
         recycler.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+        adapter.onScrollReachedEnd = {
+            viewModel.loadMoreItems()
+        }
         adapter.onFooterClick = {
             viewModel.loadMoreItems()
         }
-        recycler.adapter = adapter
         recycler.setOnTouchListener { _,_ ->
             keyboard.hide(view)
         }
+
+        recycler.adapter = adapter
     }
 
     private fun setupSwipeToRefresh() {

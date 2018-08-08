@@ -11,9 +11,9 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.reddit_item_row.view.*
 
-class RedditItemViewHolder : RecyclerView.ViewHolder {
+class RedditItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    constructor(view: View) : super(view) {
+    init {
         view.progressBar.indeterminateDrawable.setColorFilter(view.context.resources.getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
     }
 
