@@ -51,6 +51,7 @@ class FoodFragment : BaseFragment() {
 
     private fun initSearch() {
         searchBar.searchCallback = { before, after ->
+            adapter.searchTerm = after
             viewModel.onSearch(before, after)
         }
     }
@@ -96,6 +97,11 @@ class FoodFragment : BaseFragment() {
         viewModel.loadMoreState.observe(this, Observer {
             it?.let {
                 adapter.updateFooterState(it)
+            }
+        })
+        viewModel.swipeToRefresh.observe(this, Observer {
+            it?.let {
+                swipeToRefresh.isEnabled = it
             }
         })
     }

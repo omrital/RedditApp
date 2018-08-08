@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import com.omrital.reddit.R
 import kotlinx.android.synthetic.main.search_bar.view.*
@@ -29,13 +30,18 @@ class SearchBar: LinearLayout {
     private fun init(context: Context?) {
         LayoutInflater.from(context).inflate(R.layout.search_bar, this, true)
         addTextChangeListener()
+        clearButton.setOnClickListener {
+            searchField.setText("")
+        }
     }
 
     private fun addTextChangeListener() {
         searchField.addTextChangedListener(object: TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
-                searchCallback?.invoke(before, s.toString())
+                val after = s.toString()
+                clearButton.visibility = if(after.isEmpty()) View.GONE else View.VISIBLE
+                searchCallback?.invoke(before, after)
             }
             override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 before = s.toString()

@@ -25,6 +25,7 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
     val items: MutableLiveData<List<RedditItem>> = MutableLiveData()
     val nextItems: MutableLiveData<List<RedditItem>> = MutableLiveData()
     val progress: MutableLiveData<Boolean> = MutableLiveData()
+    val swipeToRefresh: MutableLiveData<Boolean> = MutableLiveData()
     val loadMoreState: MutableLiveData<FooterState> = MutableLiveData()
     val emptyState: MutableLiveData<String> = MutableLiveData()
 
@@ -70,12 +71,14 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
     }
 
     private fun refreshFromCache() {
+        swipeToRefresh.postValue(true)
         searching = false
         updateCacheEmptyState()
         items.postValue(cache)
     }
 
     private fun search(term: String) {
+        swipeToRefresh.postValue(false)
         searching = true
         currentUserSearch = term
 
