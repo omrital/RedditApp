@@ -1,4 +1,4 @@
-package com.omrital.reddit.screens
+package com.omrital.reddit.screens.listElements
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

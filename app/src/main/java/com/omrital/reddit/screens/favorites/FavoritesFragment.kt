@@ -11,7 +11,7 @@ import com.omrital.reddit.R
 import com.omrital.reddit.core.BaseFragment
 import com.omrital.reddit.core.CustomViewModelFactory
 import com.omrital.reddit.dagger.AppComponent
-import com.omrital.reddit.screens.RedditItemsAdapter
+import com.omrital.reddit.screens.listElements.RedditItemsAdapter
 import kotlinx.android.synthetic.main.fragment_food.*
 import javax.inject.Inject
 

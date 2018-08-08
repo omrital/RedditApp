@@ -6,7 +6,6 @@ import com.omrital.reddit.dagger.AppModule
 import com.omrital.reddit.dagger.DaggerAppComponent
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.rx.RealmObservableFactory
 
 class RedditApplication: Application() {
 

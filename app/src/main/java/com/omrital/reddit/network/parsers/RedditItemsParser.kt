@@ -5,16 +5,15 @@ import com.omrital.reddit.network.ErrorMessage
 import com.omrital.reddit.network.Progress
 import com.omrital.reddit.network.ResponseParser
 import com.omrital.reddit.network.model.RedditResponseStructure
-import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
 import com.omrital.reddit.network.RedditUrlsBuilder
 import org.jdeferred2.Promise
 import org.jdeferred2.impl.DeferredObject
 
-class RedditItemsParser(val channel: String): ResponseParser<RedditBulk> {
-    override fun parse(response: RedditResponseStructure): Promise<RedditBulk, ErrorMessage, Progress> {
+class RedditItemsParser(val channel: String): ResponseParser<List<RedditItem>> {
+    override fun parse(response: RedditResponseStructure): Promise<List<RedditItem>, ErrorMessage, Progress> {
 
-        val deferred = DeferredObject<RedditBulk, ErrorMessage, Progress>()
+        val deferred = DeferredObject<List<RedditItem>, ErrorMessage, Progress>()
 
         val gson = Gson()
         try {
@@ -28,7 +27,7 @@ class RedditItemsParser(val channel: String): ResponseParser<RedditBulk> {
                         child.data.thumbnail,
                         RedditUrlsBuilder.buildFullItemlUrl(channel, child.data.id)))
             }
-            deferred.resolve(RedditBulk(items, responseModel.before, responseModel.after))
+            deferred.resolve(items)
 
         } catch (e: Exception) {
             deferred.reject("failed to parse Reddit items")
@@ -44,6 +43,4 @@ private class RedditItemDataStructure(val id: String,
 
 private class RedditItemStructure(val data: RedditItemDataStructure)
 
-private class RedditItemsListDataStructure(val children: List<RedditItemStructure>,
-                                           val after: String?,
-                                           val before: String?)
+private class RedditItemsListDataStructure(val children: List<RedditItemStructure>)

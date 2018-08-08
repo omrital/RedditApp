@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navigator: Navigator
     @Inject
     lateinit var keyboard: Keyboard
+    private var selectedTab = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +46,24 @@ class MainActivity : AppCompatActivity() {
         pager.adapter = adapter
         tabs.setupWithViewPager(pager)
         pager.addOnPageChangeListener(MainPagerListener {
-            onTabSelected()
+            onTabSelected(it)
         })
     }
 
-    private fun onTabSelected() {
+    private fun onTabSelected(selectedTab: Int) {
+        this.selectedTab = selectedTab
         keyboard.hide(searchField)
     }
 
     fun getAppComponent(): AppComponent {
         return (application as RedditApplication).appComponent
+    }
+
+    override fun onBackPressed() {
+        if(selectedTab != 0) {
+            pager.setCurrentItem(0, true)
+            return
+        }
+        super.onBackPressed()
     }
 }

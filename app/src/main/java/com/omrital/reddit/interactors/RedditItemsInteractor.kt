@@ -5,7 +5,6 @@ import com.omrital.reddit.Constants.RequestParams
 import com.omrital.reddit.DataBase.DataBase
 import com.omrital.reddit.Utils.MainThread
 import com.omrital.reddit.model.RealmLiveData
-import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
 import com.omrital.reddit.network.ErrorMessage
 import com.omrital.reddit.network.Progress
@@ -17,23 +16,23 @@ import org.jdeferred2.impl.DeferredObject
 import javax.inject.Inject
 
 interface RedditItemsInteractorType {
-    fun getItems(): Promise<RedditBulk, ErrorMessage, Progress>
+    fun getItems(): Promise<List<RedditItem>, ErrorMessage, Progress>
     fun getItem(id: String): RedditItem?
     fun saveItem(item: RedditItem?)
     fun deleteItem(id: String?)
     fun getFavorites(): RealmLiveData<RedditItem>
-    fun getItemsAfterName(after: String?): Promise<RedditBulk, ErrorMessage, Progress>
+    fun getItemsAfterName(after: String?): Promise<List<RedditItem>, ErrorMessage, Progress>
 }
 
 class RedditItemsInteractor @Inject constructor(val requestDispatcher: RequestDispatcher,
                                                 val dataBase: DataBase): RedditItemsInteractorType {
 
-    override fun getItems(): Promise<RedditBulk, ErrorMessage, Progress> {
+    override fun getItems(): Promise<List<RedditItem>, ErrorMessage, Progress> {
         return getItemsAfterName(null)
     }
 
-    override fun getItemsAfterName(after: String?): Promise<RedditBulk, ErrorMessage, Progress> {
-        val deferred = DeferredObject<RedditBulk, ErrorMessage, Progress>()
+    override fun getItemsAfterName(after: String?): Promise<List<RedditItem>, ErrorMessage, Progress> {
+        val deferred = DeferredObject<List<RedditItem>, ErrorMessage, Progress>()
 
         var getItemsRequest = RedditItemsRequest(RequestParams.VAL_LIMIT, Channels.FOOD, after)
         val promise = requestDispatcher.dispatchRequest(getItemsRequest, RedditItemsParser(Channels.FOOD))

@@ -8,7 +8,7 @@ import com.omrital.reddit.core.Navigator
 import com.omrital.reddit.interactors.RedditItemsInteractor
 import com.omrital.reddit.network.RequestDispatcher
 import com.omrital.reddit.providers.SelectedItemProvider
-import com.omrital.reddit.screens.RedditItemsAdapter
+import com.omrital.reddit.screens.listElements.RedditItemsAdapter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

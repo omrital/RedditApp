@@ -7,7 +7,6 @@ import com.omrital.reddit.Constants.Search
 import com.omrital.reddit.R
 import com.omrital.reddit.interactors.RedditItemsInteractor
 import com.omrital.reddit.model.FooterState
-import com.omrital.reddit.model.RedditBulk
 import com.omrital.reddit.model.RedditItem
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -139,9 +138,9 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
         }
     }
 
-    private fun onGetItemsSuccess(bulk: RedditBulk) {
+    private fun onGetItemsSuccess(newItems: List<RedditItem>) {
         cache.clear()
-        cache.addAll(bulk.items)
+        cache.addAll(newItems)
 
         progress.postValue(false)
         updateCacheEmptyState()
@@ -176,10 +175,10 @@ class FoodViewModel @Inject constructor(private val interactor: RedditItemsInter
         }
     }
 
-    private fun onLoadMoreSuccess(bulk: RedditBulk) {
-        if(bulk.items.isNotEmpty()) {
-            cache.addAll(bulk.items)
-            nextItems.postValue(bulk.items)
+    private fun onLoadMoreSuccess(newItems: List<RedditItem>) {
+        if(newItems.isNotEmpty()) {
+            cache.addAll(newItems)
+            nextItems.postValue(newItems)
         } else {
             noMoreItemsToFetch = true
         }
